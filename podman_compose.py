@@ -1831,7 +1831,9 @@ Description=%i rootless pod (podman-compose)
 [Service]
 Type=simple
 EnvironmentFile=%h/{stacks_dir}/%i.env
-ExecStartPre=-{script} up --no-start
+#FIXME:
+#https://github.com/containers/podman-compose/issues/534#issuecomment-1274603325
+ExecStartPre=-{script} up --no-start --force-recreate
 ExecStartPre=/usr/bin/podman pod start pod_%i
 ExecStart={script} wait
 ExecStop=/usr/bin/podman pod stop pod_%i
